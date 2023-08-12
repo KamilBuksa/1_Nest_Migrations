@@ -21,7 +21,9 @@ import appConfig from './config/app.config';
         database: process.env.DATABASE_NAME,
         autoLoadEntities: true,
         synchronize: true,
+        logging: 'all',
       }),
+
     }),
     ArticlesModule,
 

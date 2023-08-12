@@ -1,8 +1,7 @@
 import {
   Column,
   Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 
 @Entity()
@@ -10,7 +9,7 @@ export class Article {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 3 })
   title: string;
 
   @Column()
@@ -18,8 +17,6 @@ export class Article {
 
   @Column()
   body: string;
-
-
 
   @Column({ nullable: true })
   photoId: number;
