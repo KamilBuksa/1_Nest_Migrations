@@ -1,30 +1,15 @@
-import {Module} from '@nestjs/common';
-import {ArticlesController} from "./articles.controller";
-import {ArticlesService} from "./articles.service";
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {Article} from "./entities/article.entity";
-import {ConfigModule} from "@nestjs/config";
-import { JwtModule } from '@nestjs/jwt';
-import { AtStrategy, RtStrategy } from 'src/auth/strategies';
-import { Auth } from '../auth/entities/auth.entity';
-import { AuthService } from '../auth/auth.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { Module } from '@nestjs/common';
+import { ConfigModule } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { ArticlesController } from "./articles.controller";
+import { ArticlesService } from "./articles.service";
+import { Article } from "./entities/article.entity";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Article,Auth]), ConfigModule, JwtModule.register({}),
-
-        ClientsModule.register([
-            {
-                name: 'PHOTOS',
-                transport: Transport.TCP,
-                options: {
-                    port:3001
-                }
-            }
-        ])
+    imports: [TypeOrmModule.forFeature([Article,]),
     ],
     controllers: [ArticlesController],
-    providers: [ArticlesService,AuthService, AtStrategy, RtStrategy,]
+    providers: [ArticlesService,]
 })
 export class ArticlesModule {
 }

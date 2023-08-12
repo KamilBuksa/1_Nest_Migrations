@@ -9,6 +9,7 @@ import appConfig from './config/app.config';
   imports: [
     ConfigModule.forRoot({
       load: [appConfig], // 👈
+
     }),
     TypeOrmModule.forRootAsync({ // 👈
       useFactory: (configService: ConfigService) => ({

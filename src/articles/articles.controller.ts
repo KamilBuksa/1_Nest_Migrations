@@ -1,18 +1,19 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
   Param,
-  Post,
-  Body,
+  ParseIntPipe,
   Patch,
-  Delete,
-  Query, UseGuards, Req, ParseIntPipe
+  Post,
+  Query,
+  Req
 } from "@nestjs/common";
+import { Request } from "express";
 import { ArticlesService } from "./articles.service";
 import { CreateArticleDto } from "./dto/create-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
-import { ApiKeyGuard } from "../common/guards/api-key.guard";
-import { Request } from "express";
 
 @Controller("articles")
 export class ArticlesController {
@@ -24,7 +25,6 @@ export class ArticlesController {
 
   //Guard jest po to by mieć dostęp do req.user i z rozkodowanego tokenu wziąć id, by je przypisać do tabeli article wraz z artykułem
   // Post article and save in article table
-  @UseGuards(ApiKeyGuard)
   @Post()
   async createArticle(
     @Body() createArticleDto: CreateArticleDto,
@@ -59,15 +59,7 @@ export class ArticlesController {
     return this.articlesService.findOne(id);
   }
 
-  //if you dont want auth table to be see, just delete relations: ['auth'] in findArticlesWrittenByUser
-  //http://localhost:3000/articles/user/17
-  @Get("user/:id")
-  findArticlesWrittenByUser(
-    @Param("id", ParseIntPipe) id: number
-  ) {
-    return this.articlesService.findArticlesWrittenByUser(id);
 
-  }
 
 
   @Patch(":id")
